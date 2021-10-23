@@ -185,12 +185,12 @@ Always is useful to debug your code see what is happening in your algorithm, so 
    > Server Listening for port: 8000
 
 2. To make sure your application is working fine and it creates the Genesis Block you can use POSTMAN to request the Genesis block:
-   <img src="screenshots/request_genesis.png" width="128">
+   <div><img src="screenshots/request_genesis.png" width="400"></div>
 3. Make your first request of ownership sending your wallet address:
-   ![Request: http://localhost:8000/requestValidation ](private-blockchain-assignment-1/screenshots/request-ownership.png)
+   <div><img src="screenshots/request_ownership.png" width="400"></div>
 4. Sign the message with your Wallet:
-   ![Use the Wallet to sign a message](private-blockchain-assignment-1/screenshots/sign-message.png)
+   <div><img src="screenshots/sign_message.png" width="400"></div>
 5. Submit your Star
-   ![Request: http://localhost:8000/submitstar](private-blockchain-assignment-1/screenshots/submit-star.png)
+   <div><img src="screenshots/submit_star.png" width="400"></div>
 6. Retrieve Stars owned by me
-   ![Request: http://localhost:8000/blocks/<WALLET_ADDRESS>](private-blockchain-assignment-1/screenshots/retrieve-stars.png)
+   <div><img src="screenshots/retrieve_stars.png" width="400"></div>
