@@ -1,0 +1,166 @@
+{
+	"info": {
+		"_postman_id": "4551efc7-67ed-49ca-8fbe-9a798d39f7c5",
+		"name": "Private Blockchain",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Genesis Block",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/block/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"block",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Request Validation",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"address\": \"mpGcW3mBKuqqV7Rf3A34VFBCzWjBKCPGJb\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/requestValidation",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"requestValidation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Submit Star",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"address\":\"mpGcW3mBKuqqV7Rf3A34VFBCzWjBKCPGJb\",\n    \"signature\":\"ILOFLo2wly9oA365nRgGmH6umMM1+saFs6mESrFQ3xswbF+30iwcNRIWWrnwsiA8lQAHVRJulej+DZ/ROnlCH3A=\",\n    \"message\":\"mpGcW3mBKuqqV7Rf3A34VFBCzWjBKCPGJb:1634977982:starRegistry\",\n    \"star\": {\n        \"dec\": \"31 52 56.9\",\n        \"ra\": \"17h 29m 2.0s\",\n        \"story\": \"Testing the story 1\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/submitstar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"submitstar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve Stars",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/blocks/mpGcW3mBKuqqV7Rf3A34VFBCzWjBKCPGJb",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"blocks",
+						"mpGcW3mBKuqqV7Rf3A34VFBCzWjBKCPGJb"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Validate Chain",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/validate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"validate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Block By Hash",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/block/hash/8b1a4eaa9d60e7a085782e69ebfdcea1bed8f23eca4d8f139fabfad7d82ea80d",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"block",
+						"hash",
+						"8b1a4eaa9d60e7a085782e69ebfdcea1bed8f23eca4d8f139fabfad7d82ea80d"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Block by Height",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/block/height/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"block",
+						"height",
+						"4"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
