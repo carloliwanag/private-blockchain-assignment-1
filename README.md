@@ -185,7 +185,7 @@ Always is useful to debug your code see what is happening in your algorithm, so 
    > Server Listening for port: 8000
 
 2. To make sure your application is working fine and it creates the Genesis Block you can use POSTMAN to request the Genesis block:
-   ![Genesis Block] (screenshots/request_genesis.png)
+   <img src="screenshots/request_genesis.png" width="128">
 3. Make your first request of ownership sending your wallet address:
    ![Request: http://localhost:8000/requestValidation ](private-blockchain-assignment-1/screenshots/request-ownership.png)
 4. Sign the message with your Wallet:
