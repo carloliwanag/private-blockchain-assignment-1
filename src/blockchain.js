@@ -204,7 +204,6 @@ class Blockchain {
       //skip genesis block
       if (i > 0) {
         const bData = await this.chain[i].getBData();
-
         const [originalAddress, timeMessageSent, registyName] =
           bData.data.message.split(':');
 
@@ -214,7 +213,9 @@ class Blockchain {
       }
     }
 
-    return stars;
+    return new Promise((resolve, reject) => {
+      resolve(stars);
+    });
   }
 
   /**
