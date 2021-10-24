@@ -198,23 +198,28 @@ class Blockchain {
    * @param {*} address
    */
   async getStarsByWalletAddress(address) {
+    let self = this;
     let stars = [];
 
-    for (let i = 0; i < this.chain.length; i++) {
-      //skip genesis block
-      if (i > 0) {
-        const bData = await this.chain[i].getBData();
-        const [originalAddress, timeMessageSent, registyName] =
-          bData.data.message.split(':');
+    return new Promise(async (resolve, reject) => {
+      for (let i = 0; i < self.chain.length; i++) {
+        //skip genesis block
+        if (i > 0) {
+          const bData = await this.chain[i].getBData();
+          const [originalAddress, timeMessageSent, registyName] =
+            bData.data.message.split(':');
 
-        if (originalAddress === address) {
-          stars.push(bData.data.star);
+          if (originalAddress === address) {
+            stars.push(bData.data.star);
+          }
         }
       }
-    }
 
-    return new Promise((resolve, reject) => {
-      resolve(stars);
+      if (stars.length > 0) {
+        resolve(stars);
+      } else {
+        reject('No stars found for this address: ' + address);
+      }
     });
   }
 
