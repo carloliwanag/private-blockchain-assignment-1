@@ -19,16 +19,12 @@ class BlockchainController {
     this.validateChain();
   }
 
-  getBlock() {
+  async getBlock() {
     this.app.get('/block/:index', async (req, res) => {
-      if (
-        req.params.index &&
-        +req.params.index >= 0 &&
-        +req.params.index < this.blockchain.height
-      ) {
+      if (req.params.index) {
         try {
-          let genesisBlock = this.blockchain.chain[+req.params.index];
-          return res.status(200).json(genesisBlock);
+          let block = await this.blockchain.getBlockByHeight(+req.params.index);
+          return res.status(200).json(block);
         } catch (e) {
           res.status(500).json(e + '');
         }
@@ -45,20 +41,16 @@ class BlockchainController {
     this.app.get('/block/height/:height', async (req, res) => {
       const height =
         req.params && req.params.height ? +req.params.height : null;
-      if (height) {
-        try {
-          const height = parseInt(req.params.height);
-          const block = await this.blockchain.getBlockByHeight(height);
-          if (block) {
-            return res.status(200).json(block);
-          } else {
-            return res.status(404).send('Block Not Found!');
-          }
-        } catch (e) {
-          res.status(500).send(e + '');
+
+      try {
+        const block = await this.blockchain.getBlockByHeight(height);
+        if (block) {
+          return res.status(200).json(block);
+        } else {
+          return res.status(404).send('Block Not Found!');
         }
-      } else {
-        return res.status(404).send('Block Not Found! Review the Parameters!');
+      } catch (e) {
+        res.status(500).send(e + '');
       }
     });
   }
