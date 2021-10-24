@@ -63,22 +63,24 @@ class Blockchain {
   _addBlock(block) {
     let self = this;
 
-    return new Promise((resolve, reject) => {
-      try {
-        // assign previousBlockHash if not a genesis block
-        if (self.height != -1) {
-          block.previousBlockHash = self.chain[self.chain.length - 1].hash;
-        }
+    return new Promise(async (resolve, reject) => {
+      // assign previousBlockHash if not a genesis block
+      if (self.height != -1) {
+        block.previousBlockHash = self.chain[self.chain.length - 1].hash;
+      }
 
-        block.time = new Date().getTime().toString().slice(0, -3);
-        block.height = self.chain.length;
-        block.hash = SHA256(JSON.stringify(block)).toString();
-        self.chain.push(block);
-        self.height = block.height;
+      block.time = new Date().getTime().toString().slice(0, -3);
+      block.height = self.chain.length;
+      block.hash = SHA256(JSON.stringify(block)).toString();
+      self.chain.push(block);
+      self.height = block.height;
 
+      const errors = await self.validateChain();
+
+      if (errors.length === 0) {
         resolve(block);
-      } catch (e) {
-        reject(e);
+      } else {
+        reject(errors.join(','));
       }
     });
   }
@@ -229,33 +231,34 @@ class Blockchain {
    * 1. You should validate each block using `validateBlock`
    * 2. Each Block should check the with the previousBlockHash
    */
-  async validateChain() {
-    // let self = this;
+  validateChain() {
+    let self = this;
     const errorLog = [];
 
-    for (let i = 0; i < this.chain.length; i++) {
-      const block = this.chain[i];
+    return new Promise(async (resolve, reject) => {
+      for (let i = 0; i < self.chain.length; i++) {
+        const block = self.chain[i];
 
-      const isValid = await block.validate();
+        const isValid = await block.validate();
 
-      if (!isValid) {
-        errorLog.push(`Block with has ${block.hash} is invalid`);
-      }
+        if (!isValid) {
+          errorLog.push(`Block with has ${block.hash} is invalid`);
+        }
 
-      // not the genesis block
-      if (i != 0) {
-        const previousBlockHash = this.chain[i - 1].hash;
-        const blocksPreviousHash = block.previousBlockHash;
+        // not the genesis block
+        if (i != 0) {
+          const previousBlockHash = self.chain[i - 1].hash;
+          const blocksPreviousHash = block.previousBlockHash;
 
-        if (previousBlockHash !== blocksPreviousHash) {
-          errorLog.push(
-            `Block with has ${block.hash} has an invalid previous block hash`
-          );
+          if (previousBlockHash !== blocksPreviousHash) {
+            errorLog.push(
+              `Block with has ${block.hash} has an invalid previous block hash`
+            );
+          }
         }
       }
-    }
-
-    return errorLog;
+      resolve(errorLog);
+    });
   }
 }
 
