@@ -71,7 +71,7 @@ class Blockchain {
         }
 
         block.time = new Date().getTime().toString().slice(0, -3);
-        block.height = self.chain.length + 1;
+        block.height = self.chain.length;
         block.hash = SHA256(JSON.stringify(block)).toString();
         self.chain.push(block);
         self.height = block.height;
@@ -178,7 +178,7 @@ class Blockchain {
   getBlockByHeight(height) {
     let self = this;
     return new Promise((resolve, reject) => {
-      if (height < 1 || height > this.height) {
+      if (height < 0 || height > this.height) {
         reject('Invalid height value');
       }
 
